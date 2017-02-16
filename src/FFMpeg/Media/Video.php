@@ -99,7 +99,7 @@ class Video extends Audio
                 $commands[] = '-b:v';
                 $commands[] = $format->getKiloBitrate() . 'k';
             }
-            
+
             $commands[] = '-refs';
             $commands[] = '6';
             $commands[] = '-coder';
@@ -112,12 +112,14 @@ class Video extends Audio
             $commands[] = '16';
             $commands[] = '-subq';
             $commands[] = '7';
+            
             $commands[] = '-i_qfactor';
             $commands[] = '0.71';
             $commands[] = '-qcomp';
             $commands[] = '0.6';
             $commands[] = '-qdiff';
             $commands[] = '4';
+        
             $commands[] = '-trellis';
             $commands[] = '1';
         }
@@ -147,6 +149,8 @@ class Video extends Audio
         $passPrefix = $fs->createTemporaryDirectory(0777, 50, $fsId) . '/' . uniqid('pass-');
         $passes = array();
         $totalPasses = $format->getPasses();
+        if($format->variableBitrate)
+            $totalPasses= 1;
 
         if (1 > $totalPasses) {
             throw new InvalidArgumentException('Pass number should be a positive value.');
