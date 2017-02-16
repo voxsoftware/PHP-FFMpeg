@@ -29,6 +29,9 @@ abstract class DefaultVideo extends DefaultAudio implements VideoInterface
     /** @var Integer */
     protected $kiloBitrate = 1000;
 
+    /** @var Boolean */
+    public $variableBitrate= true;
+
     /** @var Integer */
     protected $modulus = 16;
 
@@ -42,6 +45,8 @@ abstract class DefaultVideo extends DefaultAudio implements VideoInterface
     {
         return $this->kiloBitrate;
     }
+
+
 
     /**
      * Sets the kiloBitrate value.

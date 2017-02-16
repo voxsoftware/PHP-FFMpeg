@@ -84,9 +84,22 @@ class Video extends Audio
             $commands = array_merge($commands, $filter->apply($this, $format));
         }
 
+
+
         if ($format instanceof VideoInterface) {
-            $commands[] = '-b:v';
-            $commands[] = $format->getKiloBitrate() . 'k';
+
+            if($format->variableBitrate){
+                $commands[] = '-maxrate';
+                $commands[] = $format->getKiloBitrate() . 'k';
+
+                $commands[] = '-bufsize';
+                $commands[] = $format->getKiloBitrate() . 'k';
+            }
+            else{
+                $commands[] = '-b:v';
+                $commands[] = $format->getKiloBitrate() . 'k';
+            }
+            
             $commands[] = '-refs';
             $commands[] = '6';
             $commands[] = '-coder';
